@@ -10,7 +10,6 @@ class MoviesController extends Controller
     
     public function movies(){
         $popularmovies=Http::get('https://api.themoviedb.org/3/movie/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-        //dd($popularmovies['results']);
         $nowplayingmovies=Http::get('https://api.themoviedb.org/3/movie/now_playing?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
 
@@ -18,7 +17,6 @@ class MoviesController extends Controller
         $genre=collect($genres['genres'])->mapWithKeys(function($genre){
             return [$genre['id']=>$genre['name']];
         });
-        //dd($nowplayingmovies['results']);
         
         return view('movies')->with('popularmovies',$popularmovies['results'])
                             ->with('nowplayingmovies',$nowplayingmovies['results'])

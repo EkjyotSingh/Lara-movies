@@ -3,6 +3,8 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'flase'
   theme: {
     screens: {
+        'xxs': '349px',
+        // => @media (min-width: 350px) { ... }
         'xs': '414px',
         // => @media (min-width: 414px) { ... }
         

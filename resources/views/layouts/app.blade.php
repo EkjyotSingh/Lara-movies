@@ -6,11 +6,13 @@
 
         <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
+        <link rel="stylesheet" href="{{asset('css/my.css')}}">
 
         <style>
             body {
@@ -47,8 +49,30 @@
                 </ul>
             </div>
         </div>
+        <a class="fixed bottom-12 right-6 sm:right-12 back transition-all transform translate-y-28" onclick="to_top()">
+            <svg class="icon icon-circle-up h-8 w-8 fill-current text-white hover:text-yellow-500"><use xlink:href="{{asset('img/sprite.svg#icon-circle-up')}}"></use></svg>
+        </a>
         
-@yield('content')
-        
+        @yield('content')
+        @yield('script')
+        <script>
+            //console.log($(window).height())
+            //console.log($(document).scrollTop())
+            
+            function to_top(){
+                $('html').scrollTop(0)
+            }
+            $(document).scroll(function(){
+                if($(document).scrollTop() > $(window).height()){
+                    $('.back').removeClass('translate-y-28');
+                    $('.back').addClass('translate-y-0');
+                }
+                else{
+                    $('.back').addClass('translate-y-28');
+                    $('.back').removeClass('translate-y-0');
+                }
+            })
+
+        </script>
     </body>
 </html>
