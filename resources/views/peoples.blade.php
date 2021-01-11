@@ -2,7 +2,7 @@
 @section('content')
 <div class="container mx-auto pt-14 px-2 lg:px-6 text-gray-200">
     <h1 class="uppercase text-xl font-bold text-yellow-500 mb-10 text-center xxs:text-left">Popular People</h1>
-    <div class=" loadmore w-44 mx-auto xxs:mx-0 xxs:w-full grid justify-items-center grid-cols-1 xxs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-3 xs:gap-x-6">
+    <div class=" loadmore w-44 mx-auto xxs:mx-0 xxs:w-full grid justify-items-center grid-cols-1 xxs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-3 xs:gap-x-6 xl:gap-x-12">
         @include('partial')
     </div>
 </div>
