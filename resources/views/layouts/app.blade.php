@@ -107,6 +107,9 @@
                             <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
                         </svg>
                     </li>
+                    <script>
+                        $('.search_spinner').hide();
+                    </script>
                     <li>
                         <img src="{{asset('img/php.jpg')}}" class="w-10 h-10 rounded-full"/>
                     </li>
@@ -120,7 +123,6 @@
         @yield('content')
         @yield('script')
         <script>
-            $('.search_spinner').hide();
             function to_top(){
                 $('html').scrollTop(0)
             }

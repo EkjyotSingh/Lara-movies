@@ -42,7 +42,7 @@
 
 @section('script')
     <script>
-            let page =2;
+            let type =2;
             let total_pages=3;
             let currentscrollHeight=0;
             let lockScroll= false;
@@ -51,14 +51,12 @@
             let scrollPos = Math.floor($(window).height() + $(window).scrollTop());
             let isBottom = scrollHeight - 1000 < scrollPos
 
-            if (isBottom && currentscrollHeight < scrollHeight && page<=total_pages) {
-                console.log(scrollHeight,scrollPos)
-                console.log('yes')
+            if (isBottom && currentscrollHeight < scrollHeight && type<=total_pages) {
                 $.ajax({
-                url:`{{route('movies.index')}}/${page}`,
+                url:`{{route('movies.index')}}/${type}`,
                 type:'get',
                 success:function(data){
-                        if(page==2){
+                        if(type==2){
                             $('.loadmore_loader1').remove();
                             $('.popular_container').append(data.html);
                         }
@@ -66,7 +64,7 @@
                             $('.loadmore_loader2').remove();
                             $('.now_playing_container').append(data.html);
                         }
-                        page++;
+                        type++;
                 }
             })
                 currentscrollHeight = scrollHeight

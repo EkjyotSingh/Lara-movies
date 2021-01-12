@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\Http;
 class MoviesController extends Controller
 {
     
-    public function movies($page=1){
+    public function movies($type=1){
         $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $genres=Http::get('https://api.themoviedb.org/3/genre/movie/list?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $genre=collect($genres['genres'])->mapWithKeys(function($genre){
             return [$genre['id']=>$genre['name']];
         });
-        if($page==1){
+        if($type==1){
             $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
             return view('movies')->with('topratedmovies',$topratedmovies['results'])
                                 ->with('genres',$genre);
         }
-        elseif($page==2){
+        elseif($type==2){
             $popularmovies=Http::get('https://api.themoviedb.org/3/movie/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
             //dd($popularmovies);
             $view = view('components.single-movie')->with('moviess',$popularmovies['results'])->with('genres',$genre)->render();
