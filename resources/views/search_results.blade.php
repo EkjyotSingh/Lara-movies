@@ -24,7 +24,7 @@
                             <p class="text-gray-300 text-sm mt-8 whitespace-pre-wrap">No overview is added.</p>
                         @endif
                     @else
-                        <a href="{{route('show.show',$result['id'])}}"><h2 class="text-gray-200 font-bold text-lg">{{$result['title']}}</h2></a>
+                        <a href="{{route('movie.show',$result['id'])}}"><h2 class="text-gray-200 font-bold text-lg">{{$result['title']}}</h2></a>
                         @if(isset($result['release_date']) && $result['release_date']!='')
                             <h3 class="text-gray-400  font-light text-sm whitespace-pre-wrap">{!!\Carbon\Carbon::parse($result['release_date'])->toFormattedDateString()!!}</h3>
                         @endif

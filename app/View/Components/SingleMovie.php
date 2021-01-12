@@ -7,16 +7,16 @@ use Illuminate\View\Component;
 class SingleMovie extends Component
 {
     public $genres;
-    public $movie;
+    public $moviess;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($genres,$movie)
+    public function __construct($genres,$moviess)
     {
         $this->genres=$genres;
-        $this->movie=$movie;
+        $this->moviess=$moviess;
     }
 
     /**

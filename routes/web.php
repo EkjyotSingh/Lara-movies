@@ -16,8 +16,9 @@ use App\Http\Controllers\TvshowsController;
 |
 */
 
-Route::get('/',[MoviesController::class,'movies'])->name('movies.index');
+Route::get('/{page?}',[MoviesController::class,'movies'])->name('movies.index');
 Route::get('/movie/{id}',[MoviesController::class,'show'])->name('movie.show');
+
 Route::get('/peoples/{page?}',[PeopleController::class,'peoples'])->name('peoples');
 Route::get('/people/{id}',[PeopleController::class,'people_show'])->name('people.show');
 

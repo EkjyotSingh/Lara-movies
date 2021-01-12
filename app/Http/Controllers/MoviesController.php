@@ -8,20 +8,29 @@ use Illuminate\Support\Facades\Http;
 class MoviesController extends Controller
 {
     
-    public function movies(){
-        $popularmovies=Http::get('https://api.themoviedb.org/3/movie/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-        $nowplayingmovies=Http::get('https://api.themoviedb.org/3/movie/now_playing?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+    public function movies($page=1){
         $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-
         $genres=Http::get('https://api.themoviedb.org/3/genre/movie/list?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $genre=collect($genres['genres'])->mapWithKeys(function($genre){
             return [$genre['id']=>$genre['name']];
         });
-        
-        return view('movies')->with('popularmovies',$popularmovies['results'])
-                            ->with('nowplayingmovies',$nowplayingmovies['results'])
-                            ->with('topratedmovies',$topratedmovies['results'])
-                            ->with('genres',$genre);
+        if($page==1){
+            $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            return view('movies')->with('topratedmovies',$topratedmovies['results'])
+                                ->with('genres',$genre);
+        }
+        elseif($page==2){
+            $popularmovies=Http::get('https://api.themoviedb.org/3/movie/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            //dd($popularmovies);
+            $view = view('components.single-movie')->with('moviess',$popularmovies['results'])->with('genres',$genre)->render();
+            return response()->json(['html'=>$view]);
+
+        }
+        else{
+            $nowplayingmovies=Http::get('https://api.themoviedb.org/3/movie/now_playing?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            $view = view('components.single-movie')->with('moviess',$nowplayingmovies['results'])->with('genres',$genre)->render();
+            return response()->json(['html'=>$view]);
+        }
     }
 
     public function show($id){
