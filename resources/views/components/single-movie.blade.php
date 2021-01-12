@@ -2,7 +2,7 @@
     @foreach($moviess as $movie)
         <div class="flex flex-col text-gray-200 mb-11 w-full">
             <a href="{{route('movie.show',$movie['id'])}}" class="h-60 xxs:h-64 sm:h-56 lg:h-60 xl:h-72">
-                <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w342' .$movie['poster_path'] }}" class="transition duration-250 ease-in-out hover:opacity-50  h-full xl:h-72 w-44 xxs:w-full"/>
+                <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w300' .$movie['poster_path'] }}" class="transition duration-250 ease-in-out hover:opacity-50  h-full xl:h-72 w-44 xxs:w-full"/>
             </a>
             <h3 class="text-lg mt-1"><a class="hover:text-yellow-400" href="{{route('movie.show',$movie['id'])}}">{{$movie['title']}}</a></h3>
             <span class="text-xs mb-.5 flex">
