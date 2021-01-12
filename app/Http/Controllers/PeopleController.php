@@ -21,10 +21,10 @@ class PeopleController extends Controller
         }
 }
     public function people_show($id){
-        $people=Http::get('https://api.themoviedb.org/3/person/'.$id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=movie_credits,tv_credits,external_ids')->json();    
-        $known_for=collect($people['movie_credits']['cast'])->sortByDesc('popularity')->take(8);
+        $people=Http::get('https://api.themoviedb.org/3/person/'.$id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=movie_credits,tv_credits,external_ids,combined_credits')->json();    
+        $known_for=collect($people['combined_credits']['cast'])->sortByDesc('popularity')->take(8);
         $departments=array('Art','Camera','Costume & Make-Up','Crew','Directing','Editing','Production','Sound','Visual Effects','Writing');
-        //dd($people);
+        //dd($known_for);
         return view('singlepeople')->with('people',$people)
                                     ->with('known_fors',$known_for)
                                     ->with('departments',$departments);

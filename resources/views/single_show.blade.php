@@ -25,7 +25,7 @@
                                 @endforeach
                             </span>
                             @if(isset($show['episode_run_time'][0]) && $show['episode_run_time'][0]!='')
-                                <svg class="icon icon-clock fill-current text-gray-200 h-3 w-3 ml-4 mr-2 inline-block mb-0.5 xs:mb-0"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
+                                <svg class="icon icon-clock fill-current text-gray-200 h-3 w-3 ml-4 mr-2 inline-block mb-0.5"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
                                 <span>
                                     @if(intdiv($show['episode_run_time'][0], 60)!=0)
                                         {{intdiv($show['episode_run_time'][0], 60).'h '}}

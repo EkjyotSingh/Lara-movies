@@ -7,7 +7,7 @@
             <div class="grid grid-cols-6 lg:grid-cols-3 xl:grid-cols-4 pr-0 sm:pr-2 md:pr-4 gap-2 md:gap-4 xl:gap-8 rounded-t-md border-b border-gray-600">
                 <div class="col-span-6 sm:col-span-3 md:col-span-2 lg:col-span-1">
                     @if(isset($episode['still_path']) && $episode['still_path']!=null)
-                        <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w300' .$episode['still_path']}}" class="rounded-t-md sm:rounded-tl-md sm:rounded-tr-none h-40 w-full sm:w-72">
+                        <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/original' .$episode['still_path']}}" class="rounded-t-md sm:rounded-tl-md sm:rounded-tr-none h-40 w-full sm:w-72">
                     @else
                         <img class="rounded-t-md sm:rounded-tl-md sm:rounded-tr-none h-40 w-full sm:w-72" src="{{asset('img/no-img.jpg')}}"/>
                     @endif
@@ -18,7 +18,7 @@
                             <div class="text-gray-200 font-extrabold flex items-center">
                                 <h3 class="inline-block">{{$episode['episode_number']}}</h3>
                                 <span class="hidden h-4 bg-white text-xs text-black mx-3 py-1 px-2 rounded-2xl md:flex items-center justify-between space-x-1">
-                                    <svg class="icon inline-block icon-star-full fill-current text-black w-3 h-3">
+                                    <svg class="icon inline-block icon-star-full fill-current text-black w-3 h-4">
                                         <use xlink:href="{{asset('img/sprite.svg#icon-star-full')}}"></use>
                                     </svg>
                                     <span>{{$episode['vote_average']}}</span>
@@ -26,9 +26,9 @@
                                 <h3 class="inline-block ml-3 md:ml-0">{{$episode['name']}}</h3>
                             </div>
                             <span class="text-gray-400 font-light text-sm xs:text-md">{{\Carbon\Carbon::parse($episode['air_date'])->toFormattedDateString()}}</span>
-                            <span class="inline-block md:hidden">
+                            <span class="inline-block md:hidden relative" style="top:3px;">
                                 <span class="h-4 bg-white text-xs text-black mx-3 py-1 px-2 rounded-2xl flex items-center justify-between space-x-1">
-                                    <svg class="icon inline-block icon-star-full fill-current text-black w-3 h-3">
+                                    <svg class="icon inline-block icon-star-full fill-current text-black w-3 h-4">
                                         <use xlink:href="{{asset('img/sprite.svg#icon-star-full')}}"></use>
                                     </svg>
                                     <span>{{$episode['vote_average']}}</span>

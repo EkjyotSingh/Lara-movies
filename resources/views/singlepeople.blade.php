@@ -41,8 +41,8 @@
             <h3 class="font-medium text-md mb-2 mt-1">Known For</h3>
             <span class="font-light text-sm text-gray-400">{{$people['known_for_department']}}</span>
 
-            {{--<h3 class="font-medium text-md mb-2 mt-4">Known Credits</h3>
-            <span class="font-light text-sm text-gray-400">{{$people['name']}}</span>--}}
+            <h3 class="font-medium text-md mb-2 mt-4">Known Credits</h3>
+            <span class="font-light text-sm text-gray-400">{{count($people['movie_credits']['cast'])+count($people['tv_credits']['cast'])}}</span>
 
             <h3 class="font-medium text-md mb-2 mt-4">Gender</h3>
             <span class="font-light text-sm text-gray-400">{{$people['gender'] == '1'?'Female':'Male'}}</span>
@@ -64,7 +64,7 @@
             <h1 class="font-bold text-2xl mb-8 hidden sm:block">{{$people['name']}}</h1>
             <h2 class="font-medium text-lg mb-2 mt-4 sm:mt-0">Biography</h2>
             @if(isset($people['biography']) && $people['biography']!='')
-                <p class="text-sm md:text-base font-normal mb-4 whitespace-pre-wrap">{{$people['biography']}}</p>
+                <p class="text-sm font-normal mb-4 whitespace-pre-wrap">{{$people['biography']}}</p>
             @else
                 <h4 class="text-sm text-gray-400 mb-4">No Biography</h4>
             @endif
@@ -75,10 +75,17 @@
                     <div class="flex flex-nowrap space-x-4">
                         @foreach($known_fors as $known_for)
                             <div style="min-width:110px; max-width:110px;" class="mb-2 ">
-                                <a href="">
-                                    <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w185'.$known_for['poster_path'] }}" class="h-40 rounded-md shadow-2xl"/>
-                                </a>
-                                <a href="" class="text-xs text-gray-400 mt-1 block text-center overflow-hidden">{{$known_for['title']}}</a>
+                                @if(isset($known_for['title']))
+                                    <a href="{{route('movie.show',$known_for['id'])}}">
+                                        <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w185'.$known_for['poster_path'] }}" class="h-40 rounded-md shadow-2xl"/>
+                                    </a>
+                                    <a href="{{route('movie.show',$known_for['id'])}}" class="text-xs text-gray-400 mt-1 block text-center overflow-hidden">{{$known_for['title']}}</a>
+                                @else
+                                    <a href="{{route('show.show',$known_for['id'])}}">
+                                        <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w185'.$known_for['poster_path'] }}" class="h-40 rounded-md shadow-2xl"/>
+                                    </a>
+                                    <a href="{{route('show.show',$known_for['id'])}}" class="text-xs text-gray-400 mt-1 block text-center overflow-hidden">{{$known_for['name']}}</a>
+                                @endif
                             </div>
                         @endforeach
                     </div>

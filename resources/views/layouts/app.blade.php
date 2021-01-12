@@ -90,12 +90,12 @@
                             <svg class="icon icon-video-camera fill-current w-6 h-6 lg:w-8 lg:h-8">
                                 <use xlink:href="{{asset('img/sprite.svg#icon-video-camera')}}"></use>
                             </svg>
-                            <span class="whitespace-nowrap flex items-center "style="font-family:'nunitoextrabold';">Laravel Movies</span>
+                            <span class="whitespace-nowrap flex items-center relative" style="top:2px; font-family:'nunitoextrabold';">Laravel Movies</span>
                         </a>
                     </li>
-                    <a href="{{route('movies.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md"><li>Movies</li></a>
-                    <a href="{{route('shows.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md"><li>Tv Shows</li></a>
-                    <a href="{{route('peoples')}}" class="hover:text-yellow-500 text-md"><li>People</li></a>
+                    <a href="{{route('movies.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md sm:relative" style="top:2px;"><li>Movies</li></a>
+                    <a href="{{route('shows.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md sm:relative" style="top:2px;"><li>Tv Shows</li></a>
+                    <a href="{{route('peoples')}}" class="hover:text-yellow-500 text-md sm:relative" style="top:2px;"><li>People</li></a>
                 </ul>
                 <ul class="flex-col sm:flex-row flex items-center justify-center items-center mt-1 md:mt-0">
                     <li class="mr-0 mb-1 sm:mb-0 sm:mr-4 lg:mr-8 relative search_append">
@@ -116,7 +116,7 @@
                 </ul>
             </div>
         </div>
-        <a class="fixed bottom-12 right-6 sm:right-12 back transition-all transform translate-y-28" onclick="to_top()">
+        <a class="fixed bottom-12 right-6 sm:right-12 back transition-all transform translate-y-28 z-50" onclick="to_top()">
             <svg class="icon icon-circle-up h-8 w-8 fill-current text-white hover:text-yellow-500"><use xlink:href="{{asset('img/sprite.svg#icon-circle-up')}}"></use></svg>
         </a>
         

@@ -34,15 +34,15 @@ class MoviesController extends Controller
     }
 
     public function show($id){
-        $moviedetails=Http::get('https://api.themoviedb.org/3/movie/'.$id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=images,credits,videos,keywords')->json();
-        $genres=Http::get('https://api.themoviedb.org/3/genre/movie/list?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-        $genre=collect($genres['genres'])->mapWithKeys(function($genre){
-            return [$genre['id']=>$genre['name']];
-        });
+        $moviedetails=Http::get('https://api.themoviedb.org/3/movie/'.$id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=images,credits,videos,keywords,recommendations,external_ids')->json();
         //dd($moviedetails);
+        $languages=Http::get('https://api.themoviedb.org/3/configuration/languages?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+        //dd($languages);
+        $language=collect($languages)->where('iso_639_1',$moviedetails['original_language'])->first();
         return view('singlemovie')->with('moviedetails',$moviedetails)
-                                    ->with('genres',$genre);
+                                    ->with('language',$language);
     }
+
     public function movie_search(Request $request){
         $search=Http::get('https://api.themoviedb.org/3/search/multi?api_key=9a6878bd9c7e18164a0be276c2d30a3d&query='.$request->input.'')->json();
         if(isset($search['results']) && count($search['results'])>0){
