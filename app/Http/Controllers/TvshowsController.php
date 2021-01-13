@@ -7,19 +7,28 @@ use Illuminate\Support\Facades\Http;
 
 class TvshowsController extends Controller
 {
-    public function index(){
-        $topratedshows=Http::get('https://api.themoviedb.org/3/tv/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-        $popularshows=Http::get('https://api.themoviedb.org/3/tv/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-        $ontheairshows=Http::get('https://api.themoviedb.org/3/tv/on_the_air?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-
+    public function index($type=1){
         $genres=Http::get('https://api.themoviedb.org/3/genre/tv/list?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $genres=collect($genres['genres'])->mapwithkeys(function($genres){
             return [$genres['id']=>$genres['name']];
         });
-        return view('tvshows')->with('topratedshows',$topratedshows['results'])
-                                ->with('popularshows',$popularshows['results'])
-                                ->with('ontheairshows',$ontheairshows['results'])
-                                ->with('genres',$genres);
+
+        if($type==1){
+            $topratedshows=Http::get('https://api.themoviedb.org/3/tv/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            return view('tvshows')->with('show',$topratedshows['results'])
+                                    ->with('genres',$genres);
+        }
+        elseif($type==2){
+            $popularshows=Http::get('https://api.themoviedb.org/3/tv/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            $view = view('components.single-show')->with('showss',$popularshows['results'])->with('genres',$genres)->render();
+            return response()->json(['html'=>$view]);
+
+        }
+        else{
+            $ontheairshows=Http::get('https://api.themoviedb.org/3/tv/on_the_air?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            $view = view('components.single-show')->with('showss',$ontheairshows['results'])->with('genres',$genres)->render();
+            return response()->json(['html'=>$view]);
+        }
     }
     public function show($show_id){
         $show=Http::get('https://api.themoviedb.org/3/tv/'.$show_id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=aggregate_credits,recommendations,external_ids,keywords')->json();
@@ -30,9 +39,17 @@ class TvshowsController extends Controller
     }
 
     public function single_season($show_id,$season_no){
-        $season=Http::get('https://api.themoviedb.org/3/tv/'.$show_id.'/season/'.$season_no.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+        $season=Http::get('https://api.themoviedb.org/3/tv/'.$show_id.'/season/'.$season_no.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=images')->json();
+        //dd($season);
         return view('single_season')->with('season',$season)
                                     ->with('show_id',$show_id);
+    }
+
+    public function single_episode_images(){
+        $images=Http::get('https://api.themoviedb.org/3/tv/'.request()->show_id.'/season/'.request()->season_no.'/episode/'.request()->episode_no.'/images?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+        //dd($images);
+        $html= view('episode_images')->with('images',collect($images)->take(7))->render();
+        return response()->json(['html'=>$html]);
     }
 
     public function all_seasons($show_id){
@@ -50,14 +67,12 @@ class TvshowsController extends Controller
     public function keyword_tv($keyword_id){
         $keywords=Http::get('https://api.themoviedb.org/3/discover/tv?api_key=9a6878bd9c7e18164a0be276c2d30a3d&with_keywords='.$keyword_id)->json();
         //dd($keywords);
-        return view('search_results')->with('results',$keywords['results'])
-                                        ->with('type','tv');
+        return view('search_results')->with('results',$keywords['results']);
     }
 
     public function keyword_movie($keyword_id){
         $keywords=Http::get('https://api.themoviedb.org/3/discover/movie?api_key=9a6878bd9c7e18164a0be276c2d30a3d&with_keywords='.$keyword_id)->json();
         //dd($keywords);
-        return view('search_results')->with('results',$keywords['results'])
-                                        ->with('type','movie');
+        return view('search_results')->with('results',$keywords['results']);
     }
 }

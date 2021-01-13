@@ -4,16 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class single-show extends Component
+class SingleShow extends Component
 {
+    public $showss;
+    public $genres;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($showss,$genres)
     {
-        //
+        $this->showss=$showss;
+        $this->genres=$genres;
     }
 
     /**

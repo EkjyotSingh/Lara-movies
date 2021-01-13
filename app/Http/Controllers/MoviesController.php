@@ -34,7 +34,7 @@ class MoviesController extends Controller
     }
 
     public function show($id){
-        $moviedetails=Http::get('https://api.themoviedb.org/3/movie/'.$id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=images,credits,videos,keywords,recommendations,external_ids')->json();
+        $moviedetails=Http::get('https://api.themoviedb.org/3/movie/'.$id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=credits,videos,keywords,recommendations,external_ids')->json();
         //dd($moviedetails);
         $languages=Http::get('https://api.themoviedb.org/3/configuration/languages?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         //dd($languages);
@@ -43,11 +43,31 @@ class MoviesController extends Controller
                                     ->with('language',$language);
     }
 
-    public function movie_search(Request $request){
-        $search=Http::get('https://api.themoviedb.org/3/search/multi?api_key=9a6878bd9c7e18164a0be276c2d30a3d&query='.$request->input.'')->json();
+    public function movie_images($id){
+        $images=Http::get('https://api.themoviedb.org/3/movie/'.$id.'/images?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+        //dd($images);
+        $html=view('movie_images')->with('images',collect($images['backdrops'])->take(15))->render();
+        return response()->json(['html'=>$html]);
+    }
+
+    /**       
+         * Display a listing of the resource.
+         *
+         * @param  Illuminate\Http\Request $request
+         * @return Response
+         */
+    public function search(Request $request){
+        $search=Http::get('https://api.themoviedb.org/3/search/multi?api_key=9a6878bd9c7e18164a0be276c2d30a3d&query='.$request->search.'')->json();
+    
         if(isset($search['results']) && count($search['results'])>0){
-            $view=view('partialsearch')->with('search',collect($search['results'])->take(8))->render();
-            return response()->json(['html'=>$view]);
+            if($request->ajax()){
+                //ajax request
+                $view=view('partialsearch')->with('search',collect($search['results'])->take(8))->render();
+                return response()->json(['html'=>$view]);
+            }else{
+                //normal request
+                return view('search_results')->with('results',$search['results']);
+            }
         }else{
             return response()->json(['html'=>'<div class="absolute text-sm mt-1 w-full h-12 border border-gray-300 bg-gray-800 border_list text-gray-200 flex items-center justify-center">No results found for "'.$request->input.'"</div>']);
         }

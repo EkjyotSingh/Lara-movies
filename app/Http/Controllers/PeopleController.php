@@ -28,8 +28,5 @@ class PeopleController extends Controller
         return view('singlepeople')->with('people',$people)
                                     ->with('known_fors',$known_for)
                                     ->with('departments',$departments);
-
-
-
     }
 }

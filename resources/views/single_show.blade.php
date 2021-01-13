@@ -25,7 +25,7 @@
                                 @endforeach
                             </span>
                             @if(isset($show['episode_run_time'][0]) && $show['episode_run_time'][0]!='')
-                                <svg class="icon icon-clock fill-current text-gray-200 h-3 w-3 ml-4 mr-2 inline-block mb-0.5"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
+                                <svg class="icon icon-clock fill-current text-gray-200 h-3 w-3 ml-4 mr-1.5 inline-block mb-0.5"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
                                 <span>
                                     @if(intdiv($show['episode_run_time'][0], 60)!=0)
                                         {{intdiv($show['episode_run_time'][0], 60).'h '}}
@@ -98,7 +98,7 @@
                                 @if(end($show['seasons'])['poster_path']!=null)
                                     <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" class="w-28 h-36 rounded-l-md" src="{{'https://image.tmdb.org/t/p/w342' .end($show['seasons'])['poster_path']}}" style="min-width:96px;"/>
                                 @else
-                                    <img class="w-24 h-36 rounded-l-md" src="{{asset('img/no-img.jpg')}}"/>
+                                    <img class="w-24 h-36 rounded-l-md" src="{{asset('img/no-img.jpg')}}" style="min-width:96px;"/>
                                 @endif
                             </a>
                             <div class="my-auto">

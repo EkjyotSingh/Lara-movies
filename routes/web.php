@@ -17,14 +17,17 @@ use App\Http\Controllers\TvshowsController;
 */
 
 Route::get('/movie/{type}',[MoviesController::class,'show'])->name('movie.show');
+Route::get('/movie/images/{id}',[MoviesController::class,'movie_images'])->name('movie.images');
 
 Route::get('/peoples/{page?}',[PeopleController::class,'peoples'])->name('peoples');
 Route::get('/people/{id}',[PeopleController::class,'people_show'])->name('people.show');
 
-Route::get('/search',[MoviesController::class,'movie_search'])->name('search');
+Route::get('/search',[MoviesController::class,'search'])->name('search');
 
-Route::get('/tv-shows',[TvshowsController::class,'index'])->name('shows.index');
+Route::get('/tv-shows/{page?}',[TvshowsController::class,'index'])->name('shows.index');
 Route::get('/show/{id}',[TvshowsController::class,'show'])->name('show.show');
+
+Route::get('/episode/images',[TvshowsController::class,'single_episode_images'])->name('episode.single.images');
 
 Route::get('/show/{id}/season/{season_no}',[TvshowsController::class,'single_season'])->name('season.single');
 

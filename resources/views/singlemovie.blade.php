@@ -26,7 +26,7 @@
 
             @if(isset($moviedetails['runtime']) && $moviedetails['runtime']!='')
                 <span class="flex items-center pt-3 text-xs sm:text-sm text-gray-400 mx-auto sm:mx-0">
-                    <svg class="icon icon-clock fill-current text-gray-400 h-3 w-3 mr-2 inline-block  sm:mb-0.5"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
+                    <svg class="icon icon-clock fill-current text-gray-400 h-3 w-3 mr-1.5 inline-block  sm:mb-0.5"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
                     <span>
                         @if(intdiv($moviedetails['runtime'], 60)!=0)
                             {{intdiv($moviedetails['runtime'], 60).'h '}}
@@ -122,16 +122,10 @@
             @endforeach
         </div>
     </div>
-    <div class="py-10 sm:py-20 border-b border-gray-600">
+    <div class="py-10 sm:py-20 border-b border-gray-600 images">
         <h2 class="font-semibold text-2xl mt-6 md:mt-0 mb-6">Images</h2>
-        <div class="grid grid-cols-1 xs:grid-cols-2 place-items-center sm:grid-cols-3 xl:grid-cols-4 gap-x-0 gap-y-4 xxs:gap-4 md:gap-4 lg:gap-12 xl:gap-8">
-            @foreach($moviedetails['images']['backdrops'] as $image)
-                @if($loop->index<10)
-                    <div class="w-full">
-                        <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w780' .$image['file_path']}}" class="w-full"/>
-                    </div>
-                @endif
-            @endforeach
+        <div class="loadmore_loader pt-8 flex justify-center" style="min-height:100px;">
+            <svg class=" icon icon-spinner3  fill-current text-gray-200 h-10 w-10 animate-spin"><use xlink:href="{{asset('img/sprite.svg#icon-spinner3')}}"></use></svg>
         </div>
     </div>
 
@@ -194,4 +188,30 @@
         </div>
     @endif
 </div>
+@endsection
+
+@section('script')
+    <script>
+        let type=1;
+            let currentscrollHeight=0;
+            let lockScroll= false;
+            $(document).scroll(function(){
+            let scrollHeight = $(document).height();
+            let scrollPos = Math.floor($(window).height() + $(window).scrollTop());
+            let isBottom = scrollHeight - 1400 < scrollPos
+
+            if (isBottom && currentscrollHeight < scrollHeight && type==1) {
+                $.ajax({
+                url:`{{route('movie.images',$moviedetails['id'])}}`,
+                type:'get',
+                success:function(data){
+                    $('.loadmore_loader').remove();
+                    $('.images').append(data.html);
+                    type++;
+                }
+            })
+                currentscrollHeight = scrollHeight
+            }
+        })
+    </script>
 @endsection

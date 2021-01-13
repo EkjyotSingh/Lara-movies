@@ -99,10 +99,15 @@
                 </ul>
                 <ul class="flex-col sm:flex-row flex items-center justify-center items-center mt-1 md:mt-0">
                     <li class="mr-0 mb-1 sm:mb-0 sm:mr-4 lg:mr-8 relative search_append">
-                        <input type="text" placeholder="Search" class="text-sm px-8 rounded-2xl focus:outline-none border-2 border-indigo-400 search_input h-6 w-56">
-                        <svg class="icon icon-search fill-current w-4 h-4 text-gray-400 absolute left-1.5" style="top:5px;">
-                            <use xlink:href="{{asset('img/sprite.svg#icon-search')}}"></use>
-                        </svg>
+                        <form action="{{route('search')}}" method="get">
+                            @csrf
+                            <input type="text" name="search" placeholder="Search" class="text-sm px-8 rounded-2xl focus:outline-none border-2 border-indigo-400 search_input h-6 w-56">
+                            <button type="submit">
+                                <svg class="icon icon-search fill-current w-4 h-4 text-gray-400 absolute left-1.5" style="top:5px;">
+                                    <use xlink:href="{{asset('img/sprite.svg#icon-search')}}"></use>
+                                </svg>
+                            </button>
+                        </form>
                         <svg class="search_spinner absolute top-1.5 right-1.5" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                             <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
                         </svg>
@@ -137,13 +142,13 @@
                 }
             })
             function search(){
-                let input=$('.search_input').val();
-                if(input.length >2 && input!=''){
+                let search=$('.search_input').val();
+                if(search.length >2 && search!=''){
                     $('.border_list').remove();
                         $.ajax({
                             url:`{{route('search')}}`,
                             type:'get',
-                            data:`input=${input}`,
+                            data:`search=${search}`,
                             success:function(response){
                                 $('.search_spinner').hide();
                                 $('.search_append').append(response.html);
