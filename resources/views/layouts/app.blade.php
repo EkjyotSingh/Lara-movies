@@ -98,9 +98,9 @@
                             <span class="whitespace-nowrap flex items-center relative" style="top:2px; font-family:'nunitoextrabold';">Laravel Movies</span>
                         </a>
                     </li>
-                    <a href="{{route('movies.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md sm:relative" style="top:2px;"><li>Movies</li></a>
-                    <a href="{{route('shows.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md sm:relative" style="top:2px;"><li>Tv Shows</li></a>
-                    <a href="{{route('peoples')}}" class="hover:text-yellow-500 text-md sm:relative" style="top:2px;"><li>People</li></a>
+                    <a href="{{route('movies.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md sm:relative {{Request::is('/')?'text-yellow-500':''}}" style="top:2px;"><li>Movies</li></a>
+                    <a href="{{route('shows.index')}}" class="mr-0 sm:mr-6 hover:text-yellow-500 text-md sm:relative {{Request::is('tv-shows')?'text-yellow-500':''}}" style="top:2px;"><li>Tv Shows</li></a>
+                    <a href="{{route('peoples')}}" class="hover:text-yellow-500 text-md sm:relative {{Request::is('peoples')?'text-yellow-500':''}}" style="top:2px;"><li>People</li></a>
                 </ul>
                 <ul class="flex-col sm:flex-row flex items-center justify-center items-center mt-1 md:mt-0">
                     <li class="mr-0 mb-1 sm:mb-0 sm:mr-4 lg:mr-8 relative search_append">
