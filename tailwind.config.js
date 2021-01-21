@@ -7,6 +7,8 @@ module.exports = {
      './resources/views/layouts/app.blade.php',
      './resources/views/all_seasons.blade.php',
      './resources/views/cast_crew.blade.php',
+     './resources/views/episode_images.blade.php',
+     './resources/views/movie_images.blade.php',
      './resources/views/movies.blade.php',
      './resources/views/partial.blade.php',
      './resources/views/partialsearch.blade.php',

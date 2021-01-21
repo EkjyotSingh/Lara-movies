@@ -212,11 +212,5 @@
                 currentscrollHeight = scrollHeight
             }
         })
-        function movie_video_show(key){
-            let html=`<iframe style="width:100%;height:100%;" width="560" height="315" src="https://www.youtube.com/embed/${key}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            
-            close_video();
-            $('.video_responsive').append(html);
-        }
     </script>
 @endsection

@@ -39,12 +39,17 @@
                     </div>
                     <div class="flex space-x-8 items-center justify-center sm:justify-start my-6">
                         <div class="text-sm text-gray-300">User Score : {{ $show['vote_average']*10}}%</div>
-                        <a href="https://youtu.be/{{$show['id']}}" target='_blank' class="rounded-sm font-semibold text-black px-3 py-3 bg-yellow-600 flex items-center justify-center text-sm hover:bg-yellow-700">
-                            <svg class="icon icon-play fill-current text-black h-4 w-4 mr-2">
-                                <use xlink:href="{{asset('img/sprite.svg#icon-play')}}"></use>
-                            </svg>
-                            <span class="">Play Trailer</span>
-                        </a>
+                        @foreach($show['videos']['results'] as $video)
+                            @if($video['type']=='Trailer')
+                                <a href="javascript:void(0)" onclick="movie_video_show('{{$video['key']}}')" class="rounded-sm font-semibold text-black px-3 py-3 bg-yellow-600 flex items-center justify-center text-sm hover:bg-yellow-700">
+                                    <svg class="icon icon-play fill-current text-black h-4 w-4 mr-2">
+                                        <use xlink:href="{{asset('img/sprite.svg#icon-play')}}"></use>
+                                    </svg>
+                                    <span class="">Play Trailer</span>
+                                </a>
+                                <?php break;?>
+                            @endif
+                        @endforeach
                     </div>
                     @if(isset($show['tagline']) && $show['tagline']!='')
                         <i class="text-sm font-extralight text-gray-400">{{$show['tagline']}}</i>

@@ -31,7 +31,8 @@ class TvshowsController extends Controller
         }
     }
     public function show($show_id){
-        $show=Http::get('https://api.themoviedb.org/3/tv/'.$show_id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=aggregate_credits,recommendations,external_ids,keywords')->json();
+        $show=Http::get('https://api.themoviedb.org/3/tv/'.$show_id.'?api_key=9a6878bd9c7e18164a0be276c2d30a3d&append_to_response=aggregate_credits,recommendations,external_ids,keywords,videos')->json();
+        //dd($show);
         $languages=Http::get('https://api.themoviedb.org/3/configuration/languages?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $language=collect($languages)->where('iso_639_1',$show['original_language'])->first();
         return view('single_show')->with('show',$show)
