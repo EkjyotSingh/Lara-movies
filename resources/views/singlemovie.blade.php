@@ -1,9 +1,8 @@
-@extends('layouts.app')
-@section('content')
-
+@extends('layouts.app')    
+@section('content')   
 <div class=" container mx-auto py-14 px-2 lg:px-6 text-gray-200">
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-0 sm:gap-x-6 pb-10 sm:pb-20  border-b border-gray-600 mx-0  sm:mx-0">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-0 sm:gap-x-6 md:gap-x-14 pb-10 sm:pb-20  border-b border-gray-600 mx-0  sm:mx-0">
         <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/w342' .$moviedetails['poster_path'] }}" class="my-auto rounded-md shadow-lg w-40 xs:w-60 h-60 xs:h-80 sm:h-auto sm:w-auto justify-self-center"/>
         <div class="flex flex-col md:justify-between sm:col-span-2 my-auto">
             <div class="text-center sm:text-left">
@@ -62,7 +61,7 @@
             <div class="mt-8 xxs:flex items-center justify-between">
                 @foreach($moviedetails['videos']['results'] as $video)
                     @if($video['type']=='Trailer')
-                        <a href="https://youtu.be/{{$video['key']}}" target='_blank' class=" rounded-sm font-semibold text-black px-3 py-3 bg-yellow-600 flex items-center justify-center text-sm hover:bg-yellow-700" style="width:118.66px;">
+                        <a href="javascript:void(0)" onclick="movie_video_show('{{$video['key']}}')" class=" rounded-sm font-semibold text-black px-3 py-3 bg-yellow-600 flex items-center justify-center text-sm hover:bg-yellow-700" style="width:118.66px;">
                             <svg class="icon icon-play fill-current text-black h-4 w-4 mr-2">
                                 <use xlink:href="{{asset('img/sprite.svg#icon-play')}}"></use>
                             </svg>
@@ -72,7 +71,7 @@
                     @endif
                 @endforeach
 
-                <div class="flex items-center justify-start space-x-4 pt-6 pb-8">
+                <div class="flex items-center justify-start space-x-4 pt-6 pb-8 sm:py-0">
                     @if(isset($moviedetails['external_ids']['facebook_id']))
                         <a href="https://www.facebook.com/{{$moviedetails['external_ids']['facebook_id']}}/" target="_blank">
                             <svg class="icon icon-facebook fill-current text-white w-5 h-5"><use xlink:href="{{asset('img/sprite.svg#icon-facebook')}}"></use></svg>
@@ -161,7 +160,7 @@
 
     <div class="py-10 sm:py-20 border-b border-gray-600">
         <h2 class="font-semibold text-2xl mt-6 md:mt-0 mb-6">Recommendtions</h2>
-        <div class="overflow-auto w-full">
+        <div class="overflow-auto w-full slide pb-2">
             <div class="flex flex-nowrap space-x-4">
                 @foreach($moviedetails['recommendations']['results'] as $recommendation)
                     <div class="">
@@ -213,5 +212,11 @@
                 currentscrollHeight = scrollHeight
             }
         })
+        function movie_video_show(key){
+            let html=`<iframe style="width:100%;height:100%;" width="560" height="315" src="https://www.youtube.com/embed/${key}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            
+            close_video();
+            $('.video_responsive').append(html);
+        }
     </script>
 @endsection

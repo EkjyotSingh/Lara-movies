@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
-<div>
+<div class="md:border-b border-gray-600">
     <div class=" container mx-auto pt-14 px-2 lg:px-6">
-        <div class="grid grid-cols-4 space-x-0 sm:space-x-6 md:space-x-14 py-0 sm:py-8">
+        <div class="border-b border-gray-600 md:border-none grid grid-cols-4 space-x-0 sm:space-x-6 md:space-x-14 py-0 sm:py-8">
             <div class="col-span-4 sm:col-span-1 mb-8  sm:my-auto mx-auto sm:mx-0">
                 @if(isset($show['poster_path']) && $show['poster_path']!=null)
                     <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" class="rounded-md shadow-lg w-40 xs:w-60 h-60 xs:h-80 sm:h-auto sm:w-auto" src="{{'https://image.tmdb.org/t/p/original' .$show['poster_path']}}">
@@ -12,20 +12,20 @@
                 @endif
             </div>
             <div class="col-span-4 sm:col-span-3 my-auto">
-                <div class="flex flex-col pt-0 pb-0 lg:py-10">
+                <div class="flex flex-col pt-0 pb-10 lg:py-10">
                     <div class="text-center sm:text-left">
                         <h1 class="text-gray-200 font-bold text-2xl inline-block">{{$show['name']}}</h1>
                         @if(isset($show['first_air_date']) && $show['first_air_date']!='')
                             <span class="text-gray-300  text-xl font-extralight">({{\Carbon\Carbon::parse($show['first_air_date'])->format('Y')}})</span>
                         @endif
-                        <div class="text-sm font-light text-gray-400 xs:flex items-center justify-center sm:justify-start">
-                            <span class="block xs:inline-block">
+                        <div class="text-sm font-light text-gray-400 sm:flex items-center justify-center sm:justify-start">
+                            <span class="block sm:inline-block mb-2 sm:mb-0">
                                 @foreach($show['genres'] as $genre)
                                     {{$genre['name']}}@if(!$loop->last), @endif
                                 @endforeach
                             </span>
                             @if(isset($show['episode_run_time'][0]) && $show['episode_run_time'][0]!='')
-                                <svg class="icon icon-clock fill-current text-gray-200 h-3 w-3 ml-4 mr-1.5 inline-block mb-0.5"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
+                                <svg class="icon icon-clock fill-current text-gray-400 h-3 w-3 ml-4 mr-1 sm:mr-1.5 inline-block mb-0.5"><use xlink:href="{{asset('img/sprite.svg#icon-clock')}}"></use></svg>
                                 <span>
                                     @if(intdiv($show['episode_run_time'][0], 60)!=0)
                                         {{intdiv($show['episode_run_time'][0], 60).'h '}}
@@ -67,7 +67,7 @@
 
                 <div class=" border-b border-gray-600 py-6">
                     <h2 class="text-gray-200 font-medium text-lg mb-3">Series Cast</h2>
-                    <div class="overflow-auto w-full">
+                    <div class="overflow-auto w-full slide">
                         <div class="flex flex-nowrap space-x-4">
                             @foreach(collect($show['aggregate_credits']['cast'])->sortByDesc('total_episode_count')->take(9) as $aggregate_credit)
                                 <div style="min-width:100px; max-width:100px;" class="mb-2 ">
@@ -126,7 +126,7 @@
 
                 <div class="py-6">
                     <h2 class="text-gray-200 font-medium text-lg mb-3">Recommendtions</h2>
-                    <div class="overflow-auto w-full">
+                    <div class="overflow-auto w-full slide">
                         <div class="flex flex-nowrap space-x-4">
                             @foreach($show['recommendations']['results'] as $recommendation)
                                 <div class="mb-2">

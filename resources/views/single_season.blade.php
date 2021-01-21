@@ -7,7 +7,7 @@
             <div class="grid grid-cols-6 lg:grid-cols-3 xl:grid-cols-4 pr-0 sm:pr-2 md:pr-4 gap-2 md:gap-4 xl:gap-8 rounded-t-md border-b border-gray-600">
                 <div class="col-span-6 sm:col-span-3 md:col-span-2 lg:col-span-1">
                     @if(isset($episode['still_path']) && $episode['still_path']!=null)
-                        {{--<img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/original' .$episode['still_path']}}" class="rounded-t-md sm:rounded-tl-md sm:rounded-tr-none h-40 w-full sm:w-72">--}}
+                        <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" src="{{'https://image.tmdb.org/t/p/original' .$episode['still_path']}}" class="rounded-t-md sm:rounded-tl-md sm:rounded-tr-none h-40 w-full sm:w-72">
                     @else
                         <img class="rounded-t-md sm:rounded-tl-md sm:rounded-tr-none h-40 w-full sm:w-72" src="{{asset('img/no-img.jpg')}}"/>
                     @endif
@@ -110,7 +110,7 @@
 
                 <div class="px-4 py-3">
                     <h3 class="text-gray-200 font-bold py-3 ">Images</h3>
-                    <div class="overflow-auto w-full images{{$episode['episode_number']}}">
+                    <div class="overflow-auto w-full slide pb-2 images{{$episode['episode_number']}}">
                         <div class="loadmore_loader2 pt-8 flex justify-center" style="min-height:100px;">
                             <svg class=" icon icon-spinner3  fill-current text-gray-200 h-10 w-10 animate-spin"><use xlink:href="{{asset('img/sprite.svg#icon-spinner3')}}"></use></svg>
                         </div>

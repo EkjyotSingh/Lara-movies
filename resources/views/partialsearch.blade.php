@@ -22,7 +22,7 @@
                 @if(isset($sea['poster_path']) && $sea['poster_path']!='')
                     <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" class="w-10 h-12 mx-2 inline-block" src="{{'https://image.tmdb.org/t/p/w92' .$sea['poster_path'] }}" style="min-width:40px;">
                 @else
-                    <div class="flex justify-center items-center w-10 h-12 mx-2 bg-gray-200 text-black" style="min-width:40px;">{{substr($sea['title'],0,2)}}</div>
+                    <div class="flex justify-center items-center w-10 h-12 mx-2 bg-gray-200 text-black" style="min-width:40px;">{{substr($sea['name'],0,2)}}</div>
                 @endif
             </a>
         @endif

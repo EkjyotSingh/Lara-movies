@@ -3,17 +3,17 @@
 
 <div class=" container mx-auto py-14 px-2 lg:px-6">
 
-    <h1 class="uppercase text-xl font-bold text-yellow-500 mb-10 text-center xxs:text-left">Top Rated movies</h1>
-    <x-single-movie :moviess="$topratedmovies" :genres="$genres"/>
+    <h1 class="uppercase text-xl font-bold text-yellow-500 mb-10 text-center xxs:text-left">popular movies</h1>
+    <x-single-movie :moviess="$popularmovies" :genres="$genres"/>
 
-    <h1 class="uppercase text-xl font-bold text-yellow-500 my-10 text-center xxs:text-left">popular movies</h1>
-    <div class="popular_container">
+    <h1 class="uppercase text-xl font-bold border-t border-gray-600  text-yellow-500 py-10 text-center xxs:text-left">Top Rated movies</h1>
+    <div class="top_rated_container">
         <div class="loadmore_loader pt-8 flex justify-center" style="min-height:100px;">
             <svg class=" icon icon-spinner3  fill-current text-gray-200 h-10 w-10 animate-spin"><use xlink:href="{{asset('img/sprite.svg#icon-spinner3')}}"></use></svg>
         </div>
     </div>
 
-    <h1 class="uppercase text-xl font-bold text-yellow-500 my-10 text-center xxs:text-left">now playing movies</h1>
+    <h1 class="uppercase text-xl font-bold text-yellow-500 border-t border-gray-600  py-10 text-center xxs:text-left">now playing movies</h1>
     <div class="now_playing_container">
         <div class="loadmore_loader pt-8 flex justify-center" style="min-height:100px;">
             <svg class=" icon icon-spinner3  fill-current text-gray-200 h-10 w-10 animate-spin"><use xlink:href="{{asset('img/sprite.svg#icon-spinner3')}}"></use></svg>
@@ -39,7 +39,7 @@
                 type:'get',
                 success:function(data){
                         if(type==2){
-                            $('.popular_container').html(data.html);
+                            $('.top_rated_container').html(data.html);
                         }
                         else{
                             $('.now_playing_container').html(data.html);

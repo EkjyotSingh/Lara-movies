@@ -6,7 +6,6 @@
 
         <title>Laravel</title>
         <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
-        {{--<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">--}}
         <!-- Styles -->
         <style>
             @font-face {
@@ -82,7 +81,13 @@
         <link rel="stylesheet" href="{{asset('css/my.css')}}">
     </head>
     <body class="antialiased bg-gray-800">
-        <div class="h-22 md:h-20 border-b border-gray-500 bg-gray-700 py-2">
+        <div class=" fixed hidden top-0 left-0  z-50 trailer_container" >
+            <div class="h-screen trailer">
+                <svg onclick="close_video()" style="cursor:pointer;position:absolute;top:20px;right:20px;" x="0px" y="0px" width="56" height="56" viewBox="0 0 172 172" style=" fill:#000000;"><g transform=""><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="" fill="none"></path><path d="" fill="none"></path><g fill="#ffffff"><path d="M49.5575,44.72l-4.8375,4.8375l36.55,36.4425l-36.55,36.4425l4.8375,4.8375l36.6575,-36.4425l36.55,36.4425l4.8375,-4.8375l-36.55,-36.4425l36.55,-36.4425l-4.8375,-4.8375l-36.55,36.4425z"></path></g></g></g></svg>
+                <div style="height:100%;width:100%; overflow:hidden;" class="video_responsive"></div>
+            </div>
+        </div>
+        <div class="shadow-2xl h-22 md:h-20 border-b border-gray-500 bg-gray-700 py-2">
             <div class="container mx-auto h-full flex-col md:flex-row md:flex md:justify-between px-2 lg:px-6">
                 <ul class="flex-col sm:flex-row flex justify-center  items-center text-gray-200 ">
                     <li class="">
@@ -101,27 +106,24 @@
                     <li class="mr-0 mb-1 sm:mb-0 sm:mr-4 lg:mr-8 relative search_append">
                         <form action="{{route('search')}}" method="get">
                             @csrf
-                            <input type="text" name="search" placeholder="Search" class="text-sm px-8 rounded-2xl focus:outline-none border-2 border-indigo-400 search_input h-6 w-56">
+                            <input type="text" name="search" placeholder="Search" class="shadow-lg text-sm px-8 rounded-2xl focus:outline-none border-2 border-indigo-400 search_input h-6 w-56">
                             <button type="submit">
                                 <svg class="icon icon-search fill-current w-4 h-4 text-gray-400 absolute left-1.5" style="top:5px;">
                                     <use xlink:href="{{asset('img/sprite.svg#icon-search')}}"></use>
                                 </svg>
                             </button>
                         </form>
-                        <svg class="search_spinner absolute top-1.5 right-1.5" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="search_spinner hidden absolute top-1.5 right-3" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                             <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
                         </svg>
                     </li>
-                    <script>
-                        $('.search_spinner').hide();
-                    </script>
                     <li>
                         <img src="{{asset('img/php.jpg')}}" class="w-10 h-10 rounded-full"/>
                     </li>
                 </ul>
             </div>
         </div>
-        <a class="fixed bottom-12 right-6 sm:right-12 back transition-all transform translate-y-28 z-50" onclick="to_top()">
+        <a class="fixed bottom-12 right-6 sm:right-12 back transition-all transform translate-y-28 z-40" onclick="to_top()">
             <svg class="icon icon-circle-up h-8 w-8 fill-current text-white hover:text-yellow-500"><use xlink:href="{{asset('img/sprite.svg#icon-circle-up')}}"></use></svg>
         </a>
         
@@ -150,13 +152,13 @@
                             type:'get',
                             data:`search=${search}`,
                             success:function(response){
-                                $('.search_spinner').hide();
+                                $('.search_spinner').toggleClass('hidden');
                                 $('.search_append').append(response.html);
                             }
                         })
                 }
                 else{
-                    $('.search_spinner').hide();
+                    $('.search_spinner').toggleClass('hidden');
                     $('.border_list').remove();
                 }
             }
@@ -166,7 +168,7 @@
                     return;
                 }
                 timerId=setTimeout(function(){
-                    $('.search_spinner').show();
+                    $('.search_spinner').toggleClass('hidden');
                     func()
                     timerId=undefined;
                 },delay)
@@ -181,6 +183,17 @@
                     $('.border_list').remove();
                 },200)
             })
+
+            function close_video(){
+                $('.trailer_container').toggleClass('hidden');
+                $('.antialiased').toggleClass('overflow-hidden');
+                $('iframe').remove();
+            }
         </script>
+        <footer>
+            <div class=" py-4 border-t border-gray-600">
+                <div class="text-center text-sm text-gray-400">Copyright © {{\Carbon\Carbon::parse(now())->format('Y')}} <a href="{{route('movies.index')}}"class="text-gray-200"> {{ config('app.name', 'LaraMovies') }}</a>. All rights reserved.</div>
+            </div>
+        </footer>
     </body>
 </html>

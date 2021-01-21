@@ -1,4 +1,4 @@
-<div class="w-44 mx-auto xxs:mx-0 xxs:w-full grid justify-items-center border-b border-gray-600 grid-cols-1 xxs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-0 xxs:gap-x-3 xs:gap-x-6 xl:gap-x-12">
+<div class="w-44 mx-auto xxs:mx-0 xxs:w-full grid justify-items-center grid-cols-1 xxs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-x-0 xxs:gap-x-3 xs:gap-x-6 xl:gap-x-12">
     @foreach($moviess as $movie)
         <div class="flex flex-col text-gray-200 mb-11 w-full">
             <a href="{{route('movie.show',$movie['id'])}}" class="h-60 xxs:h-64 sm:h-56 lg:h-60 xl:h-72">

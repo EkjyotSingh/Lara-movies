@@ -3,7 +3,7 @@
 
 <div class=" container mx-auto py-14 px-2 lg:px-6 text-gray-200">
 
-    <div class="space-x-0 sm:space-x-4 md:space-x-8 lg:space-x-12 pb-20 mx-10 sm:mx-0 h-screen grid grid-cols-1 sm:grid-cols-4">
+    <div class="space-x-0 sm:space-x-4 md:space-x-8 lg:space-x-12 pb-20 mx-10 sm:mx-0 grid grid-cols-1 sm:grid-cols-4">
         <div class="col-span-1">
             <img onerror="this.onerror=null;this.src='{{asset('img/no-img.jpg')}}';" class="mb-4  rounded-md shadow-lg" src="{{'https://image.tmdb.org/t/p/original' .$people['profile_path'] }}"/>
 
@@ -71,7 +71,7 @@
 
             @if(count($known_fors)>0)
                 <h2 class="font-medium text-lg mb-2">Known For</h2>
-                <div class="overflow-auto w-full mb-6">
+                <div class="overflow-auto w-full mb-6 slide">
                     <div class="flex flex-nowrap space-x-4">
                         @foreach($known_fors as $known_for)
                             <div style="min-width:110px; max-width:110px;" class="mb-2 ">

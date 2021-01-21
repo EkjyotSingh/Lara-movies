@@ -16,13 +16,11 @@
             $(document).scroll(function(){
             let scrollHeight = $(document).height();
             let scrollPos = Math.floor($(window).height() + $(window).scrollTop());
-            let isBottom = scrollHeight - 300 < scrollPos
+            let isBottom = scrollHeight - 600 < scrollPos
 
             if (isBottom && currentscrollHeight < scrollHeight) {
                 console.log(scrollHeight,scrollPos)
                 $('.loadmore_loader').html(`<svg class=" icon icon-spinner3  fill-current text-gray-200 h-10 w-10 animate-spin"><use xlink:href="{{asset('img/sprite.svg#icon-spinner3')}}"></use></svg>`);
-                //$('.loadmore_loader').removeClass('opacity-0');
-                //$('.loadmore_loader').addClass('opacity-100');
                 $('.loadmore_loader').css('opacity','1');
                 console.log('yes')
                 $.ajax({
@@ -31,13 +29,9 @@
                 success:function(data){
                     if(data.error =='empty'){
                         $('.loadmore_loader').html('<div class="text-xl text-gray-200">No More Data!</div>');
-                        //$('.loadmore_loader').addClass('opacity-100');
-                        //$('.loadmore_loader').removeClass('opacity-0');
                         $('.loadmore_loader').css('opacity','1');
                     }else{
-                        //$('.loadmore_loader').removeClass('opacity-100');
-                        //$('.loadmore_loader').addClass('opacity-0');
-                        $('.loadmore_loader').css('opacity','0');
+                         $('.loadmore_loader').css('opacity','0');
                         $('.loadmore').append(data.html);
                         page++;
                     }

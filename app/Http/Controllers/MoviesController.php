@@ -9,20 +9,19 @@ class MoviesController extends Controller
 {
     
     public function movies($type=1){
-        $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $genres=Http::get('https://api.themoviedb.org/3/genre/movie/list?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
         $genre=collect($genres['genres'])->mapWithKeys(function($genre){
             return [$genre['id']=>$genre['name']];
         });
         if($type==1){
-            $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-            return view('movies')->with('topratedmovies',$topratedmovies['results'])
+            $popularmovies=Http::get('https://api.themoviedb.org/3/movie/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            return view('movies')->with('popularmovies',$popularmovies['results'])
                                 ->with('genres',$genre);
         }
         elseif($type==2){
-            $popularmovies=Http::get('https://api.themoviedb.org/3/movie/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            $topratedmovies=Http::get('https://api.themoviedb.org/3/movie/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
             //dd($popularmovies);
-            $view = view('components.single-movie')->with('moviess',$popularmovies['results'])->with('genres',$genre)->render();
+            $view = view('components.single-movie')->with('moviess',$topratedmovies['results'])->with('genres',$genre)->render();
             return response()->json(['html'=>$view]);
 
         }

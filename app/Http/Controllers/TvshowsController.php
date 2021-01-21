@@ -14,13 +14,13 @@ class TvshowsController extends Controller
         });
 
         if($type==1){
-            $topratedshows=Http::get('https://api.themoviedb.org/3/tv/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-            return view('tvshows')->with('show',$topratedshows['results'])
+            $popularshows=Http::get('https://api.themoviedb.org/3/tv/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            return view('tvshows')->with('show',$popularshows['results'])
                                     ->with('genres',$genres);
         }
         elseif($type==2){
-            $popularshows=Http::get('https://api.themoviedb.org/3/tv/popular?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
-            $view = view('components.single-show')->with('showss',$popularshows['results'])->with('genres',$genres)->render();
+            $topratedshows=Http::get('https://api.themoviedb.org/3/tv/top_rated?api_key=9a6878bd9c7e18164a0be276c2d30a3d')->json();
+            $view = view('components.single-show')->with('showss',$topratedshows['results'])->with('genres',$genres)->render();
             return response()->json(['html'=>$view]);
 
         }
